@@ -5,6 +5,9 @@ import abductionapi.exception.AxiomAbducibleSymbolException;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * AbducibleManager interface.
  */
@@ -71,26 +74,40 @@ public interface AbducibleManager {
      * @param <T>
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public <T> void addSymbol(T symbol);
+    public <T> void addSymbol(T symbol) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that creates enumeration of symbols that are enabled at abduction from an OWLOntology.
      * @param symbols an OWLOntology which is a list of axioms (symbols) to be enabled at abduction.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public void addSymbols(OWLOntology symbols);
+    public void addSymbols(OWLOntology symbols) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds owl class assertion axiom to an enumeration that are enabled at abduction.
      * @param owlClassAssertionAxiom an owl class assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertion(OWLClassAssertionAxiom owlClassAssertionAxiom);
+    public void addAssertions(OWLClassAssertionAxiom owlClassAssertionAxiom) throws AxiomAbducibleAssertionException;
 
     /**
      * Method that creates an enumeration of owl class assertion axiom that are enabled at abduction from an OWLOntology.
      * @param assertionAxioms an OWLOntology which is a list of assertion axioms to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertions(OWLOntology assertionAxioms);
+    public void addAssertions(OWLOntology assertionAxioms) throws AxiomAbducibleAssertionException;
+
+    /**
+     * Method that adds owl class assertion axiom to an enumeration that are enabled at abduction.
+     * @param assertionAxioms a set of owl class assertion axioms to be enabled at abduction.
+     * @throws AxiomAbducibleAssertionException if solver does not support any type of abducible assertion.
+     */
+    public void addAssertions(Set<OWLClassAssertionAxiom> assertionAxioms) throws AxiomAbducibleAssertionException;
+
+    /**
+     * Method that adds owl class assertion axiom to an enumeration that are enabled at abduction.
+     * @param assertionAxioms a list of owl class assertion axioms to be enabled at abduction.
+     * @throws AxiomAbducibleAssertionException if solver does not support any type of abducible assertion.
+     */
+    public void addAssertions(List<OWLClassAssertionAxiom> assertionAxioms) throws AxiomAbducibleAssertionException;
 }

@@ -38,10 +38,10 @@ public class Demo {
         // default - a file called "explanation.owl" and path is the same as plugin`s path plus /explanation
         //         - returning type of executing abduction is org.semanticweb.owlapi.model.OWLOntology
         // - output file format can be set using OWLDocumentFormat
-        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", "/firstTry");
-        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", null);
-        dLAbductionManager.setOutputFileNameAndPath(null, "/firstTry");
-        dLAbductionManager.setOutputFileNameAndPath(false); // no .owl file will be created
+        // dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", "/firstTry");
+        // dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", null);
+        // dLAbductionManager.setOutputFileNameAndPath(null, "/firstTry");
+        // dLAbductionManager.setOutputFileNameAndPath(false); // no .owl file will be created
 //        dLAbductionManager.setOutputFileFormat(someOWLDocumentFormat);
 
         // observation/s
@@ -135,10 +135,10 @@ public class Demo {
         OWLObjectComplementOf objectComplementOfParent = df.getOWLObjectComplementOf(parent);
         OWLObjectIntersectionOf objectIntersectionOfOCOParent = df.getOWLObjectIntersectionOf(person, objectComplementOfParent);
 
-        // create assertion
+        // create assertion/assertions
         OWLClassAssertionAxiom classAssertionAxiom = df.getOWLClassAssertionAxiom(objectIntersectionOfOCOParent, indivJack);
         try {
-            abducibleManager.addAssertion(classAssertionAxiom);
+            abducibleManager.addAssertions(classAssertionAxiom);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
@@ -171,3 +171,7 @@ public class Demo {
     }
 
 }
+
+// Setting output which is optional. By default the output file is called “explanation.owl” and file`s path is the same as plugin`s path plus suffix /explanation. A returning type of executing abduction is org.semanticweb.owlapi.model.OWLOntology, which is a set of axioms. Also file`s format can be set using org.semanticweb.owlapi.model.OWLDocumentFormat In There is also a possibility to enable the creation of an output text file.
+
+
