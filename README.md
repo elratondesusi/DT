@@ -54,6 +54,7 @@ Creating demo. Thinking about exceptions from solvers.
 - Bibliography reread
 - Meetings qith advisor and new modifications for API
 - Names of all chapters 
+- JavaDoc
 
 ## Points
 - Presentation for course Project seminar 2: not done yet
