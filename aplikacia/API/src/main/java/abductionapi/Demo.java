@@ -24,9 +24,9 @@ public class Demo {
         OWLDataFactory df = o.getOWLOntologyManager().getOWLDataFactory();
 
 
-       AbductionFactory dLAbductionFactory ;//= new AbductionFactory();
+        AbductionFactory dLAbductionFactory ;//= new AbductionFactory();
         // Abduction API
-       AbductionManager dLAbductionManager = dLAbductionFactory.createDLAbductionManager();
+        AbductionManager dLAbductionManager = dLAbductionFactory.createDLAbductionManager();
 
         // input
         // .owl or OWLOntology
@@ -38,10 +38,10 @@ public class Demo {
         // default - a file called "explanation.owl" and path is the same as plugin`s path plus /explanation
         //         - returning type of executing abduction is org.semanticweb.owlapi.model.OWLOntology
         // - output file format can be set using OWLDocumentFormat
-        // dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", "/firstTry");
-        // dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", null);
-        // dLAbductionManager.setOutputFileNameAndPath(null, "/firstTry");
-        // dLAbductionManager.setOutputFileNameAndPath(false); // no .owl file will be created
+        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", "/firstTry");
+        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", null);
+        dLAbductionManager.setOutputFileNameAndPath(null, "/firstTry");
+        dLAbductionManager.setOutputFileNameAndPath(false); // no .owl file will be created
 //        dLAbductionManager.setOutputFileFormat(someOWLDocumentFormat);
 
         // observation/s
@@ -49,7 +49,7 @@ public class Demo {
         Set<OWLOntology> observationOntologySet = new HashSet<>();
         try {
             dLAbductionManager.setObservation(observationOntologySet);
-       } catch (CommonException ex) {
+        } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
 
@@ -96,21 +96,34 @@ public class Demo {
         OWLIndividual indivJack = df.getOWLNamedIndividual(jack);
 
         try {
-            abducibleManager.addSymbol(indivJack); // expects NamedInd, Role, alebo Concept
+            abducibleManager.addSymbols(indivJack); // expects NamedInd, Role, alebo Concept
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
 
         OWLClass jill = df.getOWLClass(IOR+"#jill");
-        OWLIndividual indivJIll = df.getOWLNamedIndividual(jill);
+        OWLIndividual indivJill = df.getOWLNamedIndividual(jill);
 
         try {
-            abducibleManager.addSymbol(indivJIll); // expects NamedInd, Role, alebo Concept
+            abducibleManager.addSymbols(indivJill); // expects NamedInd, Role, alebo Concept
+        } catch (CommonException ex) {
+            throw new CommonException("Solver exception: ", ex);
+        }
+
+        OWLClass parent = df.getOWLClass(IOR+"#Parent"); // concept
+        try {
+            abducibleManager.addSymbols(parent); // expects NamedInd, Role, alebo Concept
+        } catch (CommonException ex) {
+            throw new CommonException("Solver exception: ", ex);
+        }
+
+        OWLObjectProperty hasChild = df.getOWLObjectProperty(IOR + "hasChild"); // role
+        try {
+            abducibleManager.addSymbols(hasChild); // expects NamedInd, Role, alebo Concept
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
         dLAbductionManager.setAbducibles(abducibleManager);
-
 
         // aleb0
         //2.2 - cez ontologiu
@@ -130,15 +143,15 @@ public class Demo {
         AbducibleManager abdMan;
 
         OWLClass person = df.getOWLClass(IOR+"#Person");
-        OWLClass parent = df.getOWLClass(IOR+"#Parent");
+//        OWLClass parent = df.getOWLClass(IOR+"#Parent");
 
         OWLObjectComplementOf objectComplementOfParent = df.getOWLObjectComplementOf(parent);
         OWLObjectIntersectionOf objectIntersectionOfOCOParent = df.getOWLObjectIntersectionOf(person, objectComplementOfParent);
 
-        // create assertion/assertions
+        // create assertion
         OWLClassAssertionAxiom classAssertionAxiom = df.getOWLClassAssertionAxiom(objectIntersectionOfOCOParent, indivJack);
         try {
-            abducibleManager.addAssertions(classAssertionAxiom);
+            abducibleManager.addAssertion(classAssertionAxiom);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
@@ -171,7 +184,3 @@ public class Demo {
     }
 
 }
-
-// Setting output which is optional. By default the output file is called “explanation.owl” and file`s path is the same as plugin`s path plus suffix /explanation. A returning type of executing abduction is org.semanticweb.owlapi.model.OWLOntology, which is a set of axioms. Also file`s format can be set using org.semanticweb.owlapi.model.OWLDocumentFormat In There is also a possibility to enable the creation of an output text file.
-
-
