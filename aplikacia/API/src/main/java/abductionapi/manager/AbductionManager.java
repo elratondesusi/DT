@@ -101,7 +101,7 @@ public interface AbductionManager extends Runnable {
     public void setMonitor(Monitor monitor);
 
     /**
-     * Method adds explantion to Monitor.explanations and a notification to monitor is sent.
+     * Method adds explanation to Monitor.explanations and a notification to monitor is sent.
      * @param explanation to be set.
      */
     public void show(OWLOntology explanation);
