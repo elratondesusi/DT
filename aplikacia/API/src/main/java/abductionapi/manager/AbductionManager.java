@@ -1,5 +1,6 @@
 package abductionapi.manager;
 
+import abductionapi.Monitor;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -10,10 +11,11 @@ import java.util.Set;
 /**
  * DLAbductionManager interface.
  */
-public interface AbductionManager {
+public interface AbductionManager extends Runnable {
 
     public static AbductionManager single_instance = null;
 
+    Monitor monitor = null;
     /**
      * Sets an input for an abduction.
      * @param input input for an abduction.
@@ -84,4 +86,23 @@ public interface AbductionManager {
      * @param owlDocumentFormat output file format.
      */
     public void setOutputFileFormat(OWLDocumentFormat owlDocumentFormat);
+
+    /**
+     * Method computes new explanations.
+     * Any new explanation is computed then method show is called.
+     */
+    @Override
+    public void run();
+
+    /**
+     * Sets monitor.
+     * @param monitor to be set.
+     */
+    public void setMonitor(Monitor monitor);
+
+    /**
+     * Method adds explantion to Monitor.explanations and a notification to monitor is sent.
+     * @param explanation to be set.
+     */
+    public void show(OWLOntology explanation);
 }

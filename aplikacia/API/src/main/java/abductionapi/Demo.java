@@ -12,8 +12,9 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Demo {
+public class Demo implements Runnable {
 
+    private static Monitor monitor = new Monitor();
 
     public static void main(String[] args) throws OWLOntologyCreationException {
 
@@ -181,6 +182,26 @@ public class Demo {
         dLAbductionManager.getOutputAdditionalInfo(); //return solver internal info (debug, etc.)
         dLAbductionManager.getExplanations(); // return Set<OWLOntology>
 
+        // output - thread version
+
+        // At first monitor is set to AbductionManager.
+        dLAbductionManager.setMonitor(monitor);
+        // Then a new thread with target of AbductionManager instance is created at the application.
+        new Thread(dLAbductionManager, "dLAbductionManager").start();
+        // Then method run in AbductionManager is executed and new explanations are computed.
+        // If any new explanation is computed by a solver (overriding AbductionManager.run), it will send a notification on a monitor.
+        // Meanwhile, application monitor is waiting for a new explanation in method Demo.run to be showed.
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                monitor.wait();
+                System.out.println(monitor.getLastExplanation());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
