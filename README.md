@@ -52,9 +52,11 @@ Creating demo. Thinking about exceptions from solvers.
 - Implementing changes from summer meetings
 - Making tutorial for colleagues from same field (abduction solvers)
 - Bibliography reread
-- Meetings qith advisor and new modifications for API
+- Meetings with advisor and new modifications for API
 - Names of all chapters 
 - JavaDoc
+- 15 pages for DT
+- starting to write chapter research
 
 ## Points
 - Presentation for course Project seminar 2: not done yet
