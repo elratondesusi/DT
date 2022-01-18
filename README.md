@@ -50,7 +50,7 @@ Creating demo. Thinking about exceptions from solvers.
 
 #### New semester -
 - Implementing changes from summer meetings
-- Making tutorial for colleagues from same field (abduction solvers)
+- Making tutorial for colleagues from same field (abduction reasoners)
 - Bibliography reread
 - Meetings with advisor and new modifications for API
 - Names of all chapters 
@@ -60,8 +60,8 @@ Creating demo. Thinking about exceptions from solvers.
 
 ## Points
 - Presentation for course Project seminar 2: not done yet
-- One entire chapater: in progress
-- Chapater - research: not done yet
+- One entire chapater: ok
+- Chapater - research: in progress
 - Bibliography - added
 - Email from advisor: not asked yet
 - Implementation: in progress
