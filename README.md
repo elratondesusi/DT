@@ -59,7 +59,7 @@ Creating demo. Thinking about exceptions from solvers.
 - starting to write chapter research
 
 ## Points
-- Presentation for course Project seminar 2: not done yet
+- Presentation for course Project seminar 2: ok
 - One entire chapater: ok
 - Chapater - research: in progress
 - Bibliography - added
