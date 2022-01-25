@@ -65,3 +65,6 @@ Creating demo. Thinking about exceptions from solvers.
 - Bibliography - added
 - Email from advisor: ok
 - Implementation: in progress
+
+
+Tutorial: https://docs.google.com/document/d/1YkYMWaga5mJIg5PWydzoOcXIpWPjWYNE2hMmhvf-fHs/edit
