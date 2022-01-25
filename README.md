@@ -68,3 +68,6 @@ Creating demo. Thinking about exceptions from solvers.
 
 
 Tutorial: https://docs.google.com/document/d/1YkYMWaga5mJIg5PWydzoOcXIpWPjWYNE2hMmhvf-fHs/edit
+
+DT text: https://github.com/elratondesusi/DT/blob/main/main.pdf
+DT presentation: https://github.com/elratondesusi/DT/blob/main/DL%20Abduction%20API%20-%20presentation.pptx.pdf
