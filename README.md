@@ -63,5 +63,5 @@ Creating demo. Thinking about exceptions from solvers.
 - One entire chapater: ok
 - Chapater - research: in progress
 - Bibliography - added
-- Email from advisor: not asked yet
+- Email from advisor: ok
 - Implementation: in progress
