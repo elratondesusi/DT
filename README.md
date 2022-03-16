@@ -50,16 +50,24 @@ Creating demo. Thinking about exceptions from solvers.
 
 #### New semester -
 - Implementing changes from summer meetings
-- Making tutorial for colleagues from same field (abduction solvers)
+- Making tutorial for colleagues from same field (abduction reasoners)
 - Bibliography reread
-- Meetings qith advisor and new modifications for API
+- Meetings with advisor and new modifications for API
 - Names of all chapters 
 - JavaDoc
+- 15 pages for DT
+- starting to write chapter research
 
 ## Points
-- Presentation for course Project seminar 2: not done yet
-- One entire chapater: in progress
-- Chapater - research: not done yet
+- Presentation for course Project seminar 2: ok
+- One entire chapater: ok
+- Chapater - research: in progress
 - Bibliography - added
-- Email from advisor: not asked yet
+- Email from advisor: ok
 - Implementation: in progress
+
+
+Tutorial: https://docs.google.com/document/d/1YkYMWaga5mJIg5PWydzoOcXIpWPjWYNE2hMmhvf-fHs/edit
+
+DT text: https://github.com/elratondesusi/DT/blob/main/main.pdf
+DT presentation: https://github.com/elratondesusi/DT/blob/main/DL%20Abduction%20API%20-%20presentation.pptx.pdf
