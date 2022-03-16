@@ -17,24 +17,11 @@ public interface AbductionManager extends Runnable {
 
     Monitor monitor = null;
     /**
-     * Sets an input for an abduction.
+     * Sets a background knowledge for an abduction.
      * @param input input for an abduction.
      * @param <T> can be String, File or OWLOntology.
      */
-    public <T> void setInput(T input);
-
-    /**
-     * Sets output file name and file path.
-     * @param fileName by default (or if null) the output file is called 'explanation.owl'.
-     * @param path by default (or if null) file path is the same as plugin path plus suffix '/explanation'.
-     */
-    public void setOutputFileNameAndPath(String fileName, String path);
-
-    /**
-     * Enables/disables a creation of an output file.
-     * @param create is a flag which indicates if output file will be created or not.
-     */
-    public void setOutputFileNameAndPath(Boolean create);
+    public <T> void setBackgroundKnowledge(T input);
 
     /**
      * Sets a solver internal info (debug, etc.).
@@ -47,7 +34,6 @@ public interface AbductionManager extends Runnable {
      * @return a string with solver internal info.
      */
     public String getOutputAdditionalInfo();
-
 
     /**
      * Returns abduction explanations.
@@ -73,13 +59,13 @@ public interface AbductionManager extends Runnable {
      * @throws MultiObservationException if solver does not support multi observation.
      * @throws AxiomObservationException if solver does not support this type of observation axiom.
      */
-    public void setObservation(Set<OWLOntology> observation);
+    public void setObservation(Set<OWLOntology> observation) throws MultiObservationException, AxiomObservationException;
 
     /**
      * Sets abducible manager for abduction.
-     * @param abducibleManager to be set to abductionManager
+     * @param abducibleContainer to be set to abductionManager
      */
-    public void setAbducibles(AbducibleManager abducibleManager);
+    public void setAbducibles(AbducibleContainer abducibleContainer);
 
     /**
      * Sets output file format.

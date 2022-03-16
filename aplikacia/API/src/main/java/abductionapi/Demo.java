@@ -2,8 +2,8 @@ package abductionapi;
 
 
 import abductionapi.exception.CommonException;
-import abductionapi.factory.AbductionFactory;
-import abductionapi.manager.AbducibleManager;
+import abductionapi.factory.AbductionManagerAndAbducibleContainerFactory;
+import abductionapi.manager.AbducibleContainer;
 import abductionapi.manager.AbductionManager;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -25,31 +25,21 @@ public class Demo implements Runnable {
         OWLDataFactory df = o.getOWLOntologyManager().getOWLDataFactory();
 
 
-        AbductionFactory dLAbductionFactory ;//= new AbductionFactory();
+        AbductionManagerAndAbducibleContainerFactory abductionFactory;//= new AbductionFactory();
         // Abduction API
-        AbductionManager dLAbductionManager = dLAbductionFactory.createDLAbductionManager();
+        AbductionManager abductionManager = abductionFactory.createAbductionManager();
 
         // input
         // .owl or OWLOntology
-        dLAbductionManager.setInput(new File("example-input.owl"));
+        abductionManager.setBackgroundKnowledge(new File("example-input.owl"));
         OWLOntology inputOntology = man.createOntology(IOR);
-        dLAbductionManager.setInput(inputOntology);
-
-        // output - optional
-        // default - a file called "explanation.owl" and path is the same as plugin`s path plus /explanation
-        //         - returning type of executing abduction is org.semanticweb.owlapi.model.OWLOntology
-        // - output file format can be set using OWLDocumentFormat
-        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", "/firstTry");
-        dLAbductionManager.setOutputFileNameAndPath("myFirstExplanation", null);
-        dLAbductionManager.setOutputFileNameAndPath(null, "/firstTry");
-        dLAbductionManager.setOutputFileNameAndPath(false); // no .owl file will be created
-//        dLAbductionManager.setOutputFileFormat(someOWLDocumentFormat);
+        abductionManager.setBackgroundKnowledge(inputOntology);
 
         // observation/s
         OWLOntology observationOntology = man.createOntology(IOR);
         Set<OWLOntology> observationOntologySet = new HashSet<>();
         try {
-            dLAbductionManager.setObservation(observationOntologySet);
+            abductionManager.setObservation(observationOntologySet);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
@@ -75,20 +65,20 @@ public class Demo implements Runnable {
         // dLAbductionManager.setNegation(True);
         // dLAbductionManager.allowAbducibles(...);
 
-        // with Abducible manager
-        AbducibleManager abducibleManager = dLAbductionFactory.createAbducibleManager();;
+        // with Abducible container
+        AbducibleContainer abducibleContainer = dLAbductionFactory.createAbducibleContainer();;
 
-        abducibleManager.allowLoops(); //(boolean default=true)
-        abducibleManager.allowLoops(false);
-        abducibleManager.allowRoleAssertions();
-        abducibleManager.allowConceptAssertions();
-        abducibleManager.allowComplexConcepts();
-        abducibleManager.allowConceptComplement();
+        abducibleContainer.allowLoops(); //(boolean default=true)
+        abducibleContainer.allowLoops(false);
+        abducibleContainer.allowRoleAssertions();
+        abducibleContainer.allowConceptAssertions();
+        abducibleContainer.allowComplexConcepts();
+        abducibleContainer.allowConceptComplement();
 
         // ****************************************************************************************************************************
         // *******************************              2  enumeration abducibles                          ****************************
         // ****************************************************************************************************************************
-        //2. --- bud enum abd. cez abducibleManager alebo cez ontologiu
+        //2. --- bud enum abd. cez abducibleContainer alebo cez ontologiu
         //2.1--- enumeration abducibles - enumeration of everything we want to be enabled. e.x.: 4 concepts -> 4 assertions or individuals, concept -> combinations
 
         //bud prvy sposob
@@ -97,7 +87,7 @@ public class Demo implements Runnable {
         OWLIndividual indivJack = df.getOWLNamedIndividual(jack);
 
         try {
-            abducibleManager.addSymbols(indivJack); // expects NamedInd, Role, alebo Concept
+            abducibleContainer.addSymbol(indivJack);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
@@ -106,42 +96,42 @@ public class Demo implements Runnable {
         OWLIndividual indivJill = df.getOWLNamedIndividual(jill);
 
         try {
-            abducibleManager.addSymbols(indivJill); // expects NamedInd, Role, alebo Concept
+            abducibleContainer.addSymbol(indivJill);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
 
         OWLClass parent = df.getOWLClass(IOR+"#Parent"); // concept
         try {
-            abducibleManager.addSymbols(parent); // expects NamedInd, Role, alebo Concept
+            abducibleContainer.addSymbol(parent);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
 
         OWLObjectProperty hasChild = df.getOWLObjectProperty(IOR + "hasChild"); // role
         try {
-            abducibleManager.addSymbols(hasChild); // expects NamedInd, Role, alebo Concept
+            abducibleContainer.addSymbol(hasChild);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
-        dLAbductionManager.setAbducibles(abducibleManager);
+        abductionManager.setAbducibles(abducibleContainer);
 
-        // aleb0
+        // alebo
         //2.2 - cez ontologiu
         // - oca.kava ontologiu = zoznam axiomov, musi mat pripravenu exception ak niektory axiom nie je porporovany ako abducible
         try {
-            abducibleManager.addSymbols(man.createOntology(IOR)); // expects NamedInd, Role, alebo Concept
+            abducibleContainer.addSymbols(man.createOntology(IOR));
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
-        dLAbductionManager.setAbducibles(abducibleManager);
+        abductionManager.setAbducibles(abducibleContainer);
 
 
         // ****************************************************************************************************************************
         // *******************************              3  enumeration assertions                          ****************************
         // ****************************************************************************************************************************
         //3---namiesto indiv, conceptov atd…-> enum. assertions
-        AbducibleManager abdMan;
+        AbducibleContainer abdMan;
 
         OWLClass person = df.getOWLClass(IOR+"#Person");
 //        OWLClass parent = df.getOWLClass(IOR+"#Parent");
@@ -152,21 +142,21 @@ public class Demo implements Runnable {
         // create assertion
         OWLClassAssertionAxiom classAssertionAxiom = df.getOWLClassAssertionAxiom(objectIntersectionOfOCOParent, indivJack);
         try {
-            abducibleManager.addAssertion(classAssertionAxiom);
+            abducibleContainer.addAssertion(classAssertionAxiom);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
-        dLAbductionManager.setAbducibles(abducibleManager);
+        abductionManager.setAbducibles(abducibleContainer);
 
         // setting assertion with ontology, e.j. load from file
         File file = new File ("pathname");
         OWLOntology ontAssertionList = man.loadOntologyFromOntologyDocument(IRI.create(file));
         try {
-            abducibleManager.addAssertions(ontAssertionList);
+            abducibleContainer.addAssertions(ontAssertionList);
         } catch (CommonException ex) {
             throw new CommonException("Solver exception: ", ex);
         }
-        dLAbductionManager.setAbducibles(abducibleManager);
+        abductionManager.setAbducibles(abducibleContainer);
 
 
         // ****************************************************************************************************************************
@@ -176,20 +166,20 @@ public class Demo implements Runnable {
         // ****************************************************************************************************************************
 
         // addtional settings for solver (optional)
-        dLAbductionManager.setAdditionalSolverSettings("internalSettings");
+        abductionManager.setAdditionalSolverSettings("internalSettings");
 
         // output
-        dLAbductionManager.getOutputAdditionalInfo(); //return solver internal info (debug, etc.)
-        dLAbductionManager.getExplanations(); // return Set<OWLOntology>
+        abductionManager.getOutputAdditionalInfo(); //return solver internal info (debug, etc.)
+        abductionManager.getExplanations(); // return Set<OWLOntology>
 
         // output - thread version
 
         // At first monitor is set to AbductionManager.
-        dLAbductionManager.setMonitor(monitor);
+        abductionManager.setMonitor(monitor);
         // Then a new thread with target of AbductionManager instance is created at the application.
-        new Thread(dLAbductionManager, "dLAbductionManager").start();
+        new Thread(abductionManager, "abductionManager").start();
         // Then method run in AbductionManager is executed and new explanations are computed.
-        // If any new explanation is computed by a solver (overriding AbductionManager.run), it will send a notification on a monitor.
+        // If any new explanation is computed BY a solver (overriding AbductionManager.run), it will send a notification on a monitor.
         // Meanwhile, application monitor is waiting for a new explanation in method Demo.run to be showed.
     }
 
@@ -198,7 +188,7 @@ public class Demo implements Runnable {
         while (true) {
             try {
                 monitor.wait();
-                System.out.println(monitor.getLastExplanation());
+                System.out.println(monitor.getNextExplanation());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

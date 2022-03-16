@@ -14,10 +14,21 @@ public class Monitor {
     }
 
     public void addNewExplanation(OWLOntology explanation) {
-        explanations.add(explanation);
+        if(explanation == null) {
+            explanations = null;
+        } else {
+            explanations.add(explanation);
+        }
     }
 
-    public OWLOntology getLastExplanation() {
+    public OWLOntology getNextExplanation() {
+        if (explanations == null) {
+            return null;
+        }
         return explanations.get(explanations.size() - 1);
+    }
+
+    public List<OWLOntology> getExplanations() {
+        return explanations;
     }
 }
