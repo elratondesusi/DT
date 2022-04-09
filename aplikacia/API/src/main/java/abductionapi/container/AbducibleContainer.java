@@ -1,6 +1,7 @@
 package abductionapi.container;
 
 import abductionapi.exception.AxiomAbducibleAssertionException;
+import abductionapi.exception.AxiomAbducibleException;
 import abductionapi.exception.AxiomAbducibleSymbolException;
 import java.util.List;
 import java.util.Set;
@@ -12,58 +13,87 @@ public interface AbducibleContainer<T> {
 
     /**
      * Method that allows loops at abduction.
+     * @throws AxiomAbducibleException if solver does not support loops enabling.
      */
     public void allowLoops();
 
     /**
      * Enables/disables loops at abduction.
      * @param allowLoops is a flag which indicates if loops are enabled or not.
+     * @throws AxiomAbducibleException if solver does not support loops enabling.
      */
-    public void allowLoops(Boolean allowLoops);
+    default void allowLoops(Boolean allowLoops) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("loops");
+    }
 
     /**
      * Method that allows role assertions at abduction.
+     * @throws AxiomAbducibleException if solver does not support role assertions enabling.
      */
-    public void allowRoleAssertions();
+    default void allowRoleAssertions() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("role assertions");
+    }
 
     /**
      * Enables/disables role assertions at abduction.
      * @param allowRoleAssertions is a flag which indicates if role assertions are enabled or not.
+     * @throws AxiomAbducibleException if solver does not support role assertions enabling.
      */
-    public void allowRoleAssertions(Boolean allowRoleAssertions);
+    default void allowRoleAssertions(Boolean allowRoleAssertions) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("role assertions");
+    }
 
     /**
      * Method that allows concept assertions at abduction.
+     * @throws AxiomAbducibleException if solver does not support concept assertions enabling.
      */
-    public void allowConceptAssertions();
+    default void allowConceptAssertions() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept assertions");
+    }
 
     /**
      * Enables/disables concept assertions at abduction.
      * @param allowConceptAssertions is a flag which indicates if concept assertions are enabled or not.
+     * @throws AxiomAbducibleException if solver does not support concept assertions enabling.
      */
-    public void allowConceptAssertions(Boolean allowConceptAssertions);
+    default void allowConceptAssertions(Boolean allowConceptAssertions) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept assertions");
+    }
 
     /**
-     * Method that allows complex concepts at abduction.
+     * Method that allows complex concepts at abduction
+     * @throws AxiomAbducibleException if solver does not support complex concept enabling.
      */
-    public void allowComplexConcepts();
+    default void allowComplexConcepts() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("complex concept");
+    }
 
     /**
      * Enables/disables complex concepts at abduction.
      * @param allowComplexConcepts is a flag which indicates if complex concepts are enabled or not.
+     * @throws AxiomAbducibleException if solver does not support complex concept enabling.
      */
-    public void allowComplexConcepts(Boolean allowComplexConcepts);
+    default void allowComplexConcepts(Boolean allowComplexConcepts) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("complex concept");
+    }
 
     /**
      * Method that allows concept complement at abduction.
+     * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
-    public void allowConceptComplement();
+    default void allowConceptComplement() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept complement");
+    }
+
 
     /**
      * Enables/disables concept complement at abduction.
      * @param allowConceptComplement is a flag which indicates if concept complement are enabled or not.
+     * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
-    public void allowConceptComplement(Boolean allowConceptComplement);
+    default void allowConceptComplement(Boolean allowConceptComplement) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept complement");
+    }
 
     /**
      * Method that adds symbol to an enumeration that is enabled at abduction.

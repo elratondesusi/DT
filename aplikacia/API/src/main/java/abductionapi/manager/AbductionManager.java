@@ -4,6 +4,7 @@ import abductionapi.Monitor;
 import abductionapi.container.AbducibleContainer;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
+import abductionapi.exception.ThreadVersionException;
 
 import java.util.Set;
 
@@ -12,11 +13,6 @@ import java.util.Set;
  */
 public interface AbductionManager extends Runnable {
 
-    public static AbductionManager single_instance = null;
-
-    AbducibleContainer abducibleContainer = null;
-
-    Monitor monitor = null;
     /**
      * Sets a background knowledge for an abduction.
      * @param input input for an abduction.
@@ -54,7 +50,9 @@ public interface AbductionManager extends Runnable {
      * @throws MultiObservationException if solver does not support multi observation.
      * @throws AxiomObservationException if solver does not support this type of observation axiom.
      */
-    public <T> void setObservation(Set<T> observation) throws MultiObservationException, AxiomObservationException;
+    default <T> void setObservation(Set<T> observation) throws MultiObservationException, AxiomObservationException {
+        throw new MultiObservationException();
+    }
 
     /**
      * Sets observation for abduction.
@@ -75,27 +73,21 @@ public interface AbductionManager extends Runnable {
      * Any new explanation is computed then method show is called.
      */
     @Override
-    public void run();
+    default void run() {
+        throw new ThreadVersionException();
+    }
 
     /**
      * Sets monitor.
      * @param monitor to be set.
      */
-    public void setMonitor(Monitor monitor);
+    default void setMonitor(Monitor monitor) {
+        throw new ThreadVersionException();
+    }
 
     /**
      * Method adds explanation to Monitor.explanations and a notification to monitor is sent.
      * @param explanation a new computed explanation.
      */
-    default <T> void sendExplanation(T explanation) {
-        if (monitor != null){
-            monitor.addNewExplanation(explanation);
-            monitor.notifyAll();
-            try {
-                monitor.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    default <T> void sendExplanation(T explanation) {}
 }
