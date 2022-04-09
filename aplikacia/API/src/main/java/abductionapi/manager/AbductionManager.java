@@ -63,6 +63,18 @@ public interface AbductionManager extends Runnable {
     public <T> void setObservation(T observation) throws MultiObservationException, AxiomObservationException;
 
     /**
+     * Returns observation.
+     * @param <T> observation.
+     */
+    public <T> T getObservation();
+
+    /**
+     * Returns background knowledge.
+     * @param <T> background knowledge.
+     */
+    public <T> T getBackgroundKnowledge();
+
+    /**
      * Sets abducible manager for abduction.
      * @param abducibleContainer to be set to abductionManager.
      */

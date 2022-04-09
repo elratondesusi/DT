@@ -81,17 +81,17 @@ public interface AbducibleContainer<T> {
      * Method that allows concept complement at abduction.
      * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
-    default void allowConceptComplement() throws AxiomAbducibleException {
+    default void allowConceptComplements() throws AxiomAbducibleException {
         throw new AxiomAbducibleException("concept complement");
     }
 
 
     /**
      * Enables/disables concept complement at abduction.
-     * @param allowConceptComplement is a flag which indicates if concept complement are enabled or not.
+     * @param allowConceptComplements is a flag which indicates if concept complement are enabled or not.
      * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
-    default void allowConceptComplement(Boolean allowConceptComplement) throws AxiomAbducibleException {
+    default void allowConceptComplements(Boolean allowConceptComplements) throws AxiomAbducibleException {
         throw new AxiomAbducibleException("concept complement");
     }
 
