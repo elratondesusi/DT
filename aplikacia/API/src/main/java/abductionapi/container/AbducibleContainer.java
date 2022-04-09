@@ -85,13 +85,32 @@ public interface AbducibleContainer<T> {
         throw new AxiomAbducibleException("concept complement");
     }
 
-
     /**
      * Enables/disables concept complement at abduction.
      * @param allowConceptComplements is a flag which indicates if concept complement are enabled or not.
      * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
     default void allowConceptComplements(Boolean allowConceptComplements) throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept complement");
+    }
+
+    default boolean areLoopsEnabled() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("loops");
+    }
+
+    default boolean areRoleAssertionsEnabled() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("role assertions");
+    }
+
+    default boolean areConceptAssertionsEnabled() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("concept assertions");
+    }
+
+    default boolean areComplexConcepts() throws AxiomAbducibleException {
+        throw new AxiomAbducibleException("complex concept");
+    }
+
+    default boolean areConceptComplementsEnabled() throws AxiomAbducibleException {
         throw new AxiomAbducibleException("concept complement");
     }
 

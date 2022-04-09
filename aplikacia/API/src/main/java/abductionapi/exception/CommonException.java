@@ -8,6 +8,6 @@ public class CommonException extends RuntimeException {
         super(message, ex);
     }
     public CommonException(String message) {
-        super(message);
+        super(message, null);
     }
 }
