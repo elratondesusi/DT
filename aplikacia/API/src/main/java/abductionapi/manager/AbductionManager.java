@@ -85,7 +85,17 @@ public interface AbductionManager extends Runnable {
 
     /**
      * Method adds explanation to Monitor.explanations and a notification to monitor is sent.
-     * @param explanation to be set.
+     * @param explanation a new computed explanation.
      */
-    public <T> void show(T explanation);
+    default <T> void sendExplanation(T explanation) {
+        if (monitor != null){
+            monitor.addNewExplanation(explanation);
+            monitor.notifyAll();
+            try {
+                monitor.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
