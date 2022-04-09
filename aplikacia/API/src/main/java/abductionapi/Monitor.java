@@ -1,19 +1,17 @@
 package abductionapi;
 
-import org.semanticweb.owlapi.model.OWLOntology;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monitor {
+public class Monitor <T> {
 
-    List<OWLOntology> explanations;
+    List<T> explanations;
 
     public Monitor () {
         explanations = new ArrayList<>();
     }
 
-    public void addNewExplanation(OWLOntology explanation) {
+    public void addNewExplanation(T explanation) {
         if(explanation == null) {
             explanations = null;
         } else {
@@ -21,14 +19,14 @@ public class Monitor {
         }
     }
 
-    public OWLOntology getNextExplanation() {
+    public T getNextExplanation() {
         if (explanations == null) {
             return null;
         }
         return explanations.get(explanations.size() - 1);
     }
 
-    public List<OWLOntology> getExplanations() {
-        return explanations;
+    public List<T> getExplanations() {
+        return (List<T>) explanations;
     }
 }

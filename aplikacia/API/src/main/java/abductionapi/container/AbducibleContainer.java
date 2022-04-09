@@ -1,9 +1,7 @@
-package abductionapi.manager;
+package abductionapi.container;
 
 import abductionapi.exception.AxiomAbducibleAssertionException;
 import abductionapi.exception.AxiomAbducibleSymbolException;
-import org.semanticweb.owlapi.model.*;
-
 import java.util.List;
 import java.util.Set;
 
@@ -69,57 +67,57 @@ public interface AbducibleContainer<T> {
 
     /**
      * Method that adds symbol to an enumeration that is enabled at abduction.
-     * @param symbol a symbol 'individual' to be enabled at abduction
+     * @param symbol a symbol to be enabled at abduction
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
     public void addSymbol(T symbol) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds set of symbols to an enumeration that are enabled at abduction.
-     * @param symbols to be enabled at abduction. Can be an individuals, a roles or a concepts.
+     * @param symbols to be enabled at abduction. Can be individuals, roles or concepts.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
     public void addSymbols(Set<T> symbols) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds list of symbols to an enumeration that are enabled at abduction.
-     * @param symbols to be enabled at abduction. Can be an individuals, a roles or a concepts.
+     * @param symbols to be enabled at abduction. Can be individuals, roles or concepts.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
     public void addSymbols(List<T> symbols) throws AxiomAbducibleSymbolException;
 
     /**
-     * Method that creates enumeration of symbols that are enabled at abduction from an OWLOntology.
-     * @param symbols an OWLOntology which is a list of axioms (symbols) to be enabled at abduction.
+     * Method that creates enumeration of symbols that are enabled at abduction from an input.
+     * @param symbols to be enabled at abduction. Can be an object containing individuals, roles or concepts.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public void addSymbols(OWLOntology symbols) throws AxiomAbducibleSymbolException;
+    public void addSymbols(T symbols) throws AxiomAbducibleSymbolException;
 
     /**
-     * Method that adds owl assertion axiom to an enumeration that is enabled at abduction.
-     * @param assertion an owl assertion axiom to be enabled at abduction.
+     * Method that adds assertion axiom to an enumeration that is enabled at abduction.
+     * @param assertion an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
     public void addAssertion(T assertion) throws AxiomAbducibleAssertionException;
 
     /**
-     * Method that adds set of owl assertions to an enumeration that are enabled at abduction.
-     * @param assertions an owl assertion axiom to be enabled at abduction.
+     * Method that adds set of assertions to an enumeration that are enabled at abduction.
+     * @param assertions an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
     public void addAssertions(Set<T> assertions) throws AxiomAbducibleAssertionException;
 
     /**
-     * Method that adds list of owl assertion to an enumeration that are enabled at abduction.
-     * @param assertions an owl assertion axiom to be enabled at abduction.
+     * Method that adds list of assertion to an enumeration that are enabled at abduction.
+     * @param assertions an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
     public void addAssertions(List<T> assertions) throws AxiomAbducibleAssertionException;
 
     /**
-     * Method that creates an enumeration of owl class assertion axiom that are enabled at abduction from an OWLOntology.
-     * @param assertionAxioms an OWLOntology which is a list of assertion axioms to be enabled at abduction.
+     * Method that creates an enumeration of assertion axioms that are enabled at abduction from an OWLOntology.
+     * @param assertionAxioms assertions to be enabled at abduction. Can be an object containing assertion axioms.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertions(OWLOntology assertionAxioms) throws AxiomAbducibleAssertionException;
+    public void addAssertions(T assertionAxioms) throws AxiomAbducibleAssertionException;
 }

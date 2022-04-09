@@ -1,10 +1,9 @@
 package abductionapi.manager;
 
 import abductionapi.Monitor;
+import abductionapi.container.AbducibleContainer;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.util.Set;
 
@@ -15,11 +14,13 @@ public interface AbductionManager extends Runnable {
 
     public static AbductionManager single_instance = null;
 
+    AbducibleContainer abducibleContainer = null;
+
     Monitor monitor = null;
     /**
      * Sets a background knowledge for an abduction.
      * @param input input for an abduction.
-     * @param <T> can be String, File or OWLOntology.
+     * @param <T> generic input.
      */
     public <T> void setBackgroundKnowledge(T input);
 
@@ -36,22 +37,16 @@ public interface AbductionManager extends Runnable {
     public String getOutputAdditionalInfo();
 
     /**
-     * Returns abduction explanations.
-     * @return Set of OWLOntology
-     */
-    public Set<OWLOntology> getExplanations();
-
-    /**
      * Returns a first computed abduction explanation.
-     * @return Set of OWLOntology
+     * @return explanation.
      */
-    public OWLOntology getExplanation();
+    public <T> T getExplanation();
 
     /**
-     * Sets single observation for abduction.
-     * @param observation single observation for abduction.
+     * Returns abduction explanations.
+     * @return Set of explanations.
      */
-    public void setObservation(OWLOntology observation);
+    public <T> Set<T> getExplanations();
 
     /**
      * Sets multi observation for abduction.
@@ -59,19 +54,21 @@ public interface AbductionManager extends Runnable {
      * @throws MultiObservationException if solver does not support multi observation.
      * @throws AxiomObservationException if solver does not support this type of observation axiom.
      */
-    public void setObservation(Set<OWLOntology> observation) throws MultiObservationException, AxiomObservationException;
+    public <T> void setObservation(Set<T> observation) throws MultiObservationException, AxiomObservationException;
+
+    /**
+     * Sets observation for abduction.
+     * @param observation observation for abduction.
+     * @throws MultiObservationException if solver does not support multi observation.
+     * @throws AxiomObservationException if solver does not support this type of observation axiom.
+     */
+    public <T> void setObservation(T observation) throws MultiObservationException, AxiomObservationException;
 
     /**
      * Sets abducible manager for abduction.
-     * @param abducibleContainer to be set to abductionManager
+     * @param abducibleContainer to be set to abductionManager.
      */
-    public void setAbducibles(AbducibleContainer abducibleContainer);
-
-    /**
-     * Sets output file format.
-     * @param owlDocumentFormat output file format.
-     */
-    public void setOutputFileFormat(OWLDocumentFormat owlDocumentFormat);
+    public <T> void setAbducibles(T abducibleContainer);
 
     /**
      * Method computes new explanations.
@@ -90,5 +87,5 @@ public interface AbductionManager extends Runnable {
      * Method adds explanation to Monitor.explanations and a notification to monitor is sent.
      * @param explanation to be set.
      */
-    public void show(OWLOntology explanation);
+    public <T> void show(T explanation);
 }

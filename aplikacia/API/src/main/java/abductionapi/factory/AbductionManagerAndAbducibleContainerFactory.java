@@ -1,7 +1,6 @@
 package abductionapi.factory;
 
-
-import abductionapi.manager.AbducibleContainer;
+import abductionapi.container.AbducibleContainer;
 import abductionapi.manager.AbductionManager;
 
 /**
