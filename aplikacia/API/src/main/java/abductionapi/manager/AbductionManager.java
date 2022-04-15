@@ -45,6 +45,11 @@ public interface AbductionManager extends Runnable {
     public <T> Set<T> getExplanations();
 
     /**
+     * Thread version method to get explanations.
+     */
+    public void getExplanationsIncrementally();
+
+    /**
      * Sets multi observation for abduction.
      * @param observation multi observation for abduction.
      * @throws MultiObservationException if solver does not support multi observation.
