@@ -1,7 +1,6 @@
 package abductionapi.manager;
 
-import abductionapi.Monitor;
-import abductionapi.container.AbducibleContainer;
+import abductionapi.monitor.Monitor;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
 import abductionapi.exception.ThreadVersionException;
@@ -32,11 +31,11 @@ public interface AbductionManager extends Runnable {
      */
     public String getOutputAdditionalInfo();
 
-    /**
-     * Returns a first computed abduction explanation.
-     * @return explanation.
-     */
-    public <T> T getExplanation();
+//    /**
+//     * Returns a first computed abduction explanation.
+//     * @return explanation.
+//     */
+//    public <T> T getExplanation();
 
     /**
      * Returns abduction explanations.
@@ -47,7 +46,9 @@ public interface AbductionManager extends Runnable {
     /**
      * Thread version method to get explanations.
      */
-    public void getExplanationsIncrementally();
+    default public void getExplanationsIncrementally() {
+        throw new ThreadVersionException();
+    }
 
     /**
      * Sets multi observation for abduction.
@@ -80,10 +81,18 @@ public interface AbductionManager extends Runnable {
     public <T> T getBackgroundKnowledge();
 
     /**
-     * Sets abducible manager for abduction.
+     * Sets abducibles for abduction
      * @param abducibleContainer to be set to abductionManager.
+     * @param <T> - AbducibleContainer implementation.
      */
     public <T> void setAbducibles(T abducibleContainer);
+
+    /**
+     * Returns abducible manager.
+     * @param <T> - AbducibleContainer implementation.
+     * @return abducibleContainer with abducibles for the abduction.
+     */
+    public <T> T getAbducibles();
 
     /**
      * Method computes new explanations.

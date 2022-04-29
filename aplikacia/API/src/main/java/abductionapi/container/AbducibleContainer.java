@@ -106,7 +106,7 @@ public interface AbducibleContainer<T> {
         throw new AxiomAbducibleException("concept assertions");
     }
 
-    default boolean areComplexConcepts() throws AxiomAbducibleException {
+    default boolean areComplexConceptsEnabled() throws AxiomAbducibleException {
         throw new AxiomAbducibleException("complex concept");
     }
 

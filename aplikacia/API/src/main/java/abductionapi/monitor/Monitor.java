@@ -1,4 +1,4 @@
-package abductionapi;
+package abductionapi.monitor;
 
 import java.util.ArrayList;
 import java.util.List;
