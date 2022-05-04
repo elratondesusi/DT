@@ -6,10 +6,15 @@ import abductionapi.exception.AxiomAbducibleSymbolException;
 import java.util.List;
 import java.util.Set;
 
+
 /**
- * AbducibleContainer interface.
+ * AbducibleContainer generic interface.
+ * @author Zuzana Hlávková, hlavkovazuz@gmail.com
+ *
+ * @param <SYMBOL_ABDUCIBLE> abducible symbol type parameter
+ * @param <ASSERTION_ABDUCIBLE> abducible assertion type parameter
  */
-public interface AbducibleContainer<T> {
+public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
 
     /**
      * Method that allows loops at abduction.
@@ -119,54 +124,40 @@ public interface AbducibleContainer<T> {
      * @param symbol a symbol to be enabled at abduction
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public void addSymbol(T symbol) throws AxiomAbducibleSymbolException;
+    public void addSymbol(SYMBOL_ABDUCIBLE symbol) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds set of symbols to an enumeration that are enabled at abduction.
      * @param symbols to be enabled at abduction. Can be individuals, roles or concepts.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public void addSymbols(Set<T> symbols) throws AxiomAbducibleSymbolException;
+    public void addSymbols(Set<SYMBOL_ABDUCIBLE> symbols) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds list of symbols to an enumeration that are enabled at abduction.
      * @param symbols to be enabled at abduction. Can be individuals, roles or concepts.
      * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
      */
-    public void addSymbols(List<T> symbols) throws AxiomAbducibleSymbolException;
-
-    /**
-     * Method that creates enumeration of symbols that are enabled at abduction from an input.
-     * @param symbols to be enabled at abduction. Can be an object containing individuals, roles or concepts.
-     * @throws AxiomAbducibleSymbolException if solver does not support this type of abducible symbol.
-     */
-    public void addSymbols(T symbols) throws AxiomAbducibleSymbolException;
+    public void addSymbols(List<SYMBOL_ABDUCIBLE> symbols) throws AxiomAbducibleSymbolException;
 
     /**
      * Method that adds assertion axiom to an enumeration that is enabled at abduction.
      * @param assertion an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertion(T assertion) throws AxiomAbducibleAssertionException;
+    public void addAssertion(ASSERTION_ABDUCIBLE assertion) throws AxiomAbducibleAssertionException;
 
     /**
      * Method that adds set of assertions to an enumeration that are enabled at abduction.
      * @param assertions an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertions(Set<T> assertions) throws AxiomAbducibleAssertionException;
+    public void addAssertions(Set<ASSERTION_ABDUCIBLE> assertions) throws AxiomAbducibleAssertionException;
 
     /**
      * Method that adds list of assertion to an enumeration that are enabled at abduction.
      * @param assertions an assertion axiom to be enabled at abduction.
      * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
      */
-    public void addAssertions(List<T> assertions) throws AxiomAbducibleAssertionException;
-
-    /**
-     * Method that creates an enumeration of assertion axioms that are enabled at abduction from an OWLOntology.
-     * @param assertionAxioms assertions to be enabled at abduction. Can be an object containing assertion axioms.
-     * @throws AxiomAbducibleAssertionException if solver does not support this type of abducible assertion.
-     */
-    public void addAssertions(T assertionAxioms) throws AxiomAbducibleAssertionException;
+    public void addAssertions(List<ASSERTION_ABDUCIBLE> assertions) throws AxiomAbducibleAssertionException;
 }

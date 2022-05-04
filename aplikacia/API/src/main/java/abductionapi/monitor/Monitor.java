@@ -3,15 +3,25 @@ package abductionapi.monitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monitor <T> {
+/**
+ * Class Monitor.
+ * @author Zuzana Hlávková, hlavkovazuz@gmail.com
+ *
+ * @param <EXPLANATION> explanation type parameter
+ */
+public class Monitor <EXPLANATION> {
 
-    List<T> explanations;
+    List<EXPLANATION> explanations;
 
     public Monitor () {
         explanations = new ArrayList<>();
     }
 
-    public void addNewExplanation(T explanation) {
+    /**
+     * Add new explanation to the list explanations.
+     * @param explanation a new computed explanation to be added to the list
+     */
+    public void addNewExplanation(EXPLANATION explanation) {
         if(explanation == null) {
             explanations = null;
         } else {
@@ -19,14 +29,22 @@ public class Monitor <T> {
         }
     }
 
-    public T getNextExplanation() {
+    /**
+     * Returns the last computed explanation.
+     * @return the last computed explanation
+     */
+    public EXPLANATION getNextExplanation() {
         if (explanations == null) {
             return null;
         }
         return explanations.get(explanations.size() - 1);
     }
 
-    public List<T> getExplanations() {
-        return (List<T>) explanations;
+    /**
+     * Returns list of explanations.
+     * @return list explanations
+     */
+    public List<EXPLANATION> getExplanations() {
+        return explanations;
     }
 }

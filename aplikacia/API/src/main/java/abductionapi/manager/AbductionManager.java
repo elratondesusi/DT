@@ -1,47 +1,59 @@
 package abductionapi.manager;
 
+import abductionapi.container.AbducibleContainer;
 import abductionapi.monitor.Monitor;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
 import abductionapi.exception.ThreadVersionException;
+import org.semanticweb.owlapi.model.OWLOntology;
 
+import java.io.File;
 import java.util.Set;
 
+
 /**
- * DLAbductionManager interface.
+ * AbductionManager generic interface.
+ * @author Zuzana Hlávková, hlavkovazuz@gmail.com
+ *
+ * @param <EXPLANATION_TYPE> explanation type parameter
+ * @param <OBSERVATION_TYPE> observation type parameter
+ * @param <SYMBOL_ABDUCIBLE> abducible symbol type parameter
+ * @param <ASSERTION_ABDUCIBLE> abducible assertion type parameter
+ * @param <ABDUCIBLES> abduction container type parameter
  */
-public interface AbductionManager extends Runnable {
+public interface AbductionManager<EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE, ABDUCIBLES extends AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE>> extends Runnable {
+
+    Monitor monitor = new Monitor();
 
     /**
-     * Sets a background knowledge for an abduction.
-     * @param input input for an abduction.
-     * @param <T> generic input.
+     * Sets the background knowledge for an abduction.
+     * @param owlOntology ontology.
      */
-    public <T> void setBackgroundKnowledge(T input);
+    public void setBackgroundKnowledge(OWLOntology owlOntology);
 
     /**
-     * Sets a solver internal info (debug, etc.).
-     * @param internalSettings solver internal info (debug, etc.).
+     * Sets the background knowledge for an abduction.
+     * @param owlOntologyFile input file for an ontology.
+     */
+    public void setBackgroundKnowledge(File owlOntologyFile);
+
+    /**
+     * Sets a solver internal info (debug, timeout, depth, etc.).
+     * @param internalSettings solver internal info (debug, timeout, depth, etc.).
      */
     public void setAdditionalSolverSettings(String internalSettings);
 
     /**
-     * Returns solver internal info (debug, etc.).
+     * Returns solver internal info (debug, timeout, depth, etc.).
      * @return a string with solver internal info.
      */
     public String getOutputAdditionalInfo();
-
-//    /**
-//     * Returns a first computed abduction explanation.
-//     * @return explanation.
-//     */
-//    public <T> T getExplanation();
 
     /**
      * Returns abduction explanations.
      * @return Set of explanations.
      */
-    public <T> Set<T> getExplanations();
+    public Set<EXPLANATION_TYPE> getExplanations();
 
     /**
      * Thread version method to get explanations.
@@ -56,7 +68,7 @@ public interface AbductionManager extends Runnable {
      * @throws MultiObservationException if solver does not support multi observation.
      * @throws AxiomObservationException if solver does not support this type of observation axiom.
      */
-    default <T> void setObservation(Set<T> observation) throws MultiObservationException, AxiomObservationException {
+    default void setObservation(Set<OBSERVATION_TYPE> observation) throws MultiObservationException, AxiomObservationException {
         throw new MultiObservationException();
     }
 
@@ -66,26 +78,26 @@ public interface AbductionManager extends Runnable {
      * @throws MultiObservationException if solver does not support multi observation.
      * @throws AxiomObservationException if solver does not support this type of observation axiom.
      */
-    public <T> void setObservation(T observation) throws MultiObservationException, AxiomObservationException;
+    public void setObservation(OBSERVATION_TYPE observation) throws MultiObservationException, AxiomObservationException;
 
     /**
      * Returns observation.
-     * @param <T> observation.
+//     * @param <OBSERVATION_TYPE> observation.
      */
-    public <T> T getObservation();
+    public OBSERVATION_TYPE getObservation();
 
     /**
      * Returns background knowledge.
-     * @param <T> background knowledge.
+     * @return OWLOntology
      */
-    public <T> T getBackgroundKnowledge();
+    public OWLOntology getBackgroundKnowledge();
 
     /**
      * Sets abducibles for abduction
      * @param abducibleContainer to be set to abductionManager.
      * @param <T> - AbducibleContainer implementation.
      */
-    public <T> void setAbducibles(T abducibleContainer);
+    public void setAbducibles(ABDUCIBLES abducibleContainer);
 
     /**
      * Returns abducible manager.
@@ -103,17 +115,36 @@ public interface AbductionManager extends Runnable {
         throw new ThreadVersionException();
     }
 
+//    /**
+//     * Sets monitor.
+//     * @param monitor to be set.
+//     */
+//    default void setMonitor(Monitor monitor) {
+//        throw new ThreadVersionException();
+//    }
+
     /**
-     * Sets monitor.
-     * @param monitor to be set.
+     * Returns monitor.
+     * @return a instance of Monitor.
      */
-    default void setMonitor(Monitor monitor) {
-        throw new ThreadVersionException();
+    default Monitor getMonitor() {
+        return monitor;
     }
 
     /**
      * Method adds explanation to Monitor.explanations and a notification to monitor is sent.
      * @param explanation a new computed explanation.
      */
-    default <T> void sendExplanation(T explanation) {}
+    default void sendExplanation(EXPLANATION_TYPE explanation) {
+//        if (monitor != null){
+            monitor.addNewExplanation(explanation);
+            monitor.notifyAll();
+            try {
+                monitor.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+//        }
+    }
+
 }
