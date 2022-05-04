@@ -20,7 +20,9 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * Method that allows loops at abduction.
      * @throws AxiomAbducibleException if solver does not support loops enabling.
      */
-    public void allowLoops();
+    default void allowLoops() {
+        throw new AxiomAbducibleException("enabling loops");
+    }
 
     /**
      * Enables/disables loops at abduction.
@@ -28,7 +30,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support loops enabling.
      */
     default void allowLoops(Boolean allowLoops) throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("loops");
+        throw new AxiomAbducibleException("enabling loops");
     }
 
     /**
@@ -36,7 +38,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support role assertions enabling.
      */
     default void allowRoleAssertions() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("role assertions");
+        throw new AxiomAbducibleException("enabling role assertions");
     }
 
     /**
@@ -45,7 +47,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support role assertions enabling.
      */
     default void allowRoleAssertions(Boolean allowRoleAssertions) throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("role assertions");
+        throw new AxiomAbducibleException("enabling role assertions");
     }
 
     /**
@@ -53,7 +55,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support concept assertions enabling.
      */
     default void allowConceptAssertions() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept assertions");
+        throw new AxiomAbducibleException("enabling concept assertions");
     }
 
     /**
@@ -62,7 +64,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support concept assertions enabling.
      */
     default void allowConceptAssertions(Boolean allowConceptAssertions) throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept assertions");
+        throw new AxiomAbducibleException("enabling concept assertions");
     }
 
     /**
@@ -70,7 +72,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support complex concept enabling.
      */
     default void allowComplexConcepts() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("complex concept");
+        throw new AxiomAbducibleException("enabling complex concept");
     }
 
     /**
@@ -79,7 +81,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support complex concept enabling.
      */
     default void allowComplexConcepts(Boolean allowComplexConcepts) throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("complex concept");
+        throw new AxiomAbducibleException("enabling complex concept");
     }
 
     /**
@@ -87,7 +89,7 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
     default void allowConceptComplements() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept complement");
+        throw new AxiomAbducibleException("enabling concept complement");
     }
 
     /**
@@ -96,27 +98,27 @@ public interface AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE> {
      * @throws AxiomAbducibleException if solver does not support concept complement enabling.
      */
     default void allowConceptComplements(Boolean allowConceptComplements) throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept complement");
+        throw new AxiomAbducibleException("enabling concept complement");
     }
 
     default boolean areLoopsEnabled() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("loops");
+        throw new AxiomAbducibleException("enabling loops");
     }
 
     default boolean areRoleAssertionsEnabled() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("role assertions");
+        throw new AxiomAbducibleException("enabling role assertions");
     }
 
     default boolean areConceptAssertionsEnabled() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept assertions");
+        throw new AxiomAbducibleException("enabling concept assertions");
     }
 
     default boolean areComplexConceptsEnabled() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("complex concept");
+        throw new AxiomAbducibleException("enabling complex concept");
     }
 
     default boolean areConceptComplementsEnabled() throws AxiomAbducibleException {
-        throw new AxiomAbducibleException("concept complement");
+        throw new AxiomAbducibleException("enabling concept complement");
     }
 
     /**

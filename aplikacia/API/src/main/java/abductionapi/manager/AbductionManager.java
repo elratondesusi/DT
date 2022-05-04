@@ -15,13 +15,14 @@ import java.util.Set;
  * AbductionManager generic interface.
  * @author Zuzana Hlávková, hlavkovazuz@gmail.com
  *
+ * @param <BCKGRNDKNW_TYPE> background knowledge type parameter
  * @param <EXPLANATION_TYPE> explanation type parameter
  * @param <OBSERVATION_TYPE> observation type parameter
  * @param <SYMBOL_ABDUCIBLE> abducible symbol type parameter
  * @param <ASSERTION_ABDUCIBLE> abducible assertion type parameter
  * @param <ABDUCIBLES> abduction container type parameter
  */
-public interface AbductionManager<EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE, ABDUCIBLES extends AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE>> extends Runnable {
+public interface AbductionManager<BCKGRNDKNW_TYPE, EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE, ABDUCIBLES extends AbducibleContainer<SYMBOL_ABDUCIBLE, ASSERTION_ABDUCIBLE>> extends Runnable {
 
     Monitor monitor = new Monitor();
 
@@ -29,13 +30,7 @@ public interface AbductionManager<EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABD
      * Sets the background knowledge for an abduction.
      * @param owlOntology ontology.
      */
-    public void setBackgroundKnowledge(OWLOntology owlOntology);
-
-    /**
-     * Sets the background knowledge for an abduction.
-     * @param owlOntologyFile input file for an ontology.
-     */
-    public void setBackgroundKnowledge(File owlOntologyFile);
+    public void setBackgroundKnowledge(BCKGRNDKNW_TYPE owlOntology);
 
     /**
      * Sets a solver internal info (debug, timeout, depth, etc.).
@@ -90,7 +85,7 @@ public interface AbductionManager<EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABD
      * Returns background knowledge.
      * @return OWLOntology
      */
-    public OWLOntology getBackgroundKnowledge();
+    public BCKGRNDKNW_TYPE getBackgroundKnowledge();
 
     /**
      * Sets abducibles for abduction
@@ -136,15 +131,13 @@ public interface AbductionManager<EXPLANATION_TYPE, OBSERVATION_TYPE, SYMBOL_ABD
      * @param explanation a new computed explanation.
      */
     default void sendExplanation(EXPLANATION_TYPE explanation) {
-//        if (monitor != null){
-            monitor.addNewExplanation(explanation);
-            monitor.notifyAll();
-            try {
-                monitor.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//        }
+        monitor.addNewExplanation(explanation);
+        monitor.notifyAll();
+        try {
+            monitor.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

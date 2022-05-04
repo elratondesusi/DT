@@ -7,11 +7,11 @@ import java.util.List;
  * Class Monitor.
  * @author Zuzana Hlávková, hlavkovazuz@gmail.com
  *
- * @param <EXPLANATION> explanation type parameter
+ * @param <EXPLANATION_TYPE> explanation type parameter
  */
-public class Monitor <EXPLANATION> {
+public class Monitor <EXPLANATION_TYPE> {
 
-    List<EXPLANATION> explanations;
+    List<EXPLANATION_TYPE> explanations;
 
     public Monitor () {
         explanations = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Monitor <EXPLANATION> {
      * Add new explanation to the list explanations.
      * @param explanation a new computed explanation to be added to the list
      */
-    public void addNewExplanation(EXPLANATION explanation) {
+    public void addNewExplanation(EXPLANATION_TYPE explanation) {
         if(explanation == null) {
             explanations = null;
         } else {
@@ -33,7 +33,7 @@ public class Monitor <EXPLANATION> {
      * Returns the last computed explanation.
      * @return the last computed explanation
      */
-    public EXPLANATION getNextExplanation() {
+    public EXPLANATION_TYPE getNextExplanation() {
         if (explanations == null) {
             return null;
         }
@@ -44,7 +44,7 @@ public class Monitor <EXPLANATION> {
      * Returns list of explanations.
      * @return list explanations
      */
-    public List<EXPLANATION> getExplanations() {
+    public List<EXPLANATION_TYPE> getExplanations() {
         return explanations;
     }
 }
