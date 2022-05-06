@@ -1,7 +1,6 @@
 package abductionapi.factory;
 
 import abductionapi.container.AbducibleContainer;
-import abductionapi.manager.AbductionManager;
 
 /**
  * AbductionManagerAndAbducibleContainerFactory generic interface.
@@ -13,7 +12,7 @@ import abductionapi.manager.AbductionManager;
 public interface AbductionManagerAndAbducibleContainerFactory<ABDUCTION_MANAGER , ABDUCIBLE_CONTAINER extends AbducibleContainer> {
 
     /**
-     * Creates an abducible manager.
+     * Creates an abducible container.
      * @return a new instance of AbducibleContainer.
      */
     public ABDUCIBLE_CONTAINER createAbducibleContainer();

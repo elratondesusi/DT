@@ -5,9 +5,7 @@ import abductionapi.monitor.Monitor;
 import abductionapi.exception.AxiomObservationException;
 import abductionapi.exception.MultiObservationException;
 import abductionapi.exception.ThreadVersionException;
-import org.semanticweb.owlapi.model.OWLOntology;
 
-import java.io.File;
 import java.util.Set;
 
 
@@ -77,7 +75,7 @@ public interface AbductionManager<BCKGRNDKNW_TYPE, EXPLANATION_TYPE, OBSERVATION
 
     /**
      * Returns observation.
-//     * @param <OBSERVATION_TYPE> observation.
+     * @return <OBSERVATION_TYPE> observation.
      */
     public OBSERVATION_TYPE getObservation();
 
@@ -90,33 +88,19 @@ public interface AbductionManager<BCKGRNDKNW_TYPE, EXPLANATION_TYPE, OBSERVATION
     /**
      * Sets abducibles for abduction
      * @param abducibleContainer to be set to abductionManager.
-     * @param <T> - AbducibleContainer implementation.
      */
     public void setAbducibles(ABDUCIBLES abducibleContainer);
 
     /**
-     * Returns abducible manager.
-     * @param <T> - AbducibleContainer implementation.
-     * @return abducibleContainer with abducibles for the abduction.
+     * Returns abducible container.
+     * @return AbducibleContainer with abducibles for the abduction.
      */
-    public <T> T getAbducibles();
+    public ABDUCIBLES getAbducibles();
 
-    /**
-     * Method computes new explanations.
-     * Any new explanation is computed then method show is called.
-     */
     @Override
     default void run() {
         throw new ThreadVersionException();
     }
-
-//    /**
-//     * Sets monitor.
-//     * @param monitor to be set.
-//     */
-//    default void setMonitor(Monitor monitor) {
-//        throw new ThreadVersionException();
-//    }
 
     /**
      * Returns monitor.
